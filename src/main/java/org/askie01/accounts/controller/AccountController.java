@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import org.askie01.accounts.constant.AccountConstants;
 import org.askie01.accounts.dto.CustomerDTO;
 import org.askie01.accounts.dto.ResponseDTO;
-import org.askie01.accounts.service.AccountServiceImpl;
+import org.askie01.accounts.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,14 +21,20 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
 
     @Autowired
-    private AccountServiceImpl accountServiceImpl;
+    private AccountService accountService;
 
     @PostMapping("/create")
     public ResponseEntity<ResponseDTO> createAccount(@RequestBody final CustomerDTO customerDTO) {
-        accountServiceImpl.createAccount(customerDTO);
+        accountService.createAccount(customerDTO);
         return new ResponseEntity<>
                 (new ResponseDTO
                         (AccountConstants.STATUS_201, AccountConstants.MESSAGE_201)
                         , HttpStatus.CREATED);
+    }
+
+    @GetMapping("/get")
+    public ResponseEntity<CustomerDTO> getAccountDetails(@RequestParam String mobileNumber) {
+        final CustomerDTO customerDTO = accountService.getAccount(mobileNumber);
+        return new ResponseEntity<>(customerDTO, HttpStatus.FOUND);
     }
 }

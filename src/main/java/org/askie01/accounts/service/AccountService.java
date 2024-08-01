@@ -6,6 +6,12 @@ public interface AccountService {
     /**
      * @param customerDTO - CustomerDTO object
      */
-    void createAccount(CustomerDTO customerDTO);
+      void createAccount(CustomerDTO customerDTO);
+
+    /**
+     * @param mobileNumber
+     * @return
+     */
+    CustomerDTO getAccount(String mobileNumber);
 
 }
