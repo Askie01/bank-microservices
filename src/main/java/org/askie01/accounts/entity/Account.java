@@ -15,11 +15,11 @@ import lombok.NoArgsConstructor;
 public class Account extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long accountNumber;
+    private Long accountId;
 
+    @OneToOne
     @JoinColumn(name = "customer_id")
-    private Long customerId;
-
+    private Customer customer;
     private String accountType;
     private String branchAddress;
 }
