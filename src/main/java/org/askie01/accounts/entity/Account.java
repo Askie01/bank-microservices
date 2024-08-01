@@ -17,9 +17,9 @@ public class Account extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long accountId;
 
+    @OneToOne
     @JoinColumn(name = "customer_id")
-    private Long customerId;
-
+    private Customer customer;
     private String accountType;
     private String branchAddress;
 }
