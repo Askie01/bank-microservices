@@ -31,7 +31,7 @@ public class AccountServiceImpl implements AccountService {
         account.setCustomerId(customer.getCustomerId());
         final long randomAccountNumber = 1000000000L + new Random().nextInt(900000000);
 
-        account.setAccountNumber(randomAccountNumber);
+        account.setAccountId(randomAccountNumber);
         account.setAccountType(AccountConstants.SAVINGS);
         account.setBranchAddress(AccountConstants.ADDRESS);
         return account;

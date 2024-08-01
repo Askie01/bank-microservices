@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Account extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long accountNumber;
+    private Long accountId;
 
     @JoinColumn(name = "customer_id")
     private Long customerId;
