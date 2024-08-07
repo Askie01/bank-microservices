@@ -1,5 +1,7 @@
 package org.askie01.accounts.controller;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,9 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Data
+@Validated
 @RestController
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,7 +28,7 @@ public class AccountController {
     private AccountService accountService;
 
     @PostMapping("create")
-    public ResponseEntity<ResponseDTO> createAccount(@RequestBody final CustomerDTO customerDTO) {
+    public ResponseEntity<ResponseDTO> createAccount(@Valid @RequestBody final CustomerDTO customerDTO) {
         accountService.createAccount(customerDTO);
         return new ResponseEntity<>
                 (new ResponseDTO
@@ -33,13 +37,14 @@ public class AccountController {
     }
 
     @GetMapping("get")
-    public ResponseEntity<CustomerDTO> getAccountDetails(@RequestParam String mobileNumber) {
+    public ResponseEntity<CustomerDTO> getAccountDetails(@Pattern(regexp = "(^$|[0-9]{9})", message = "Mobile number must be 9 digits")
+                                                         @RequestParam String mobileNumber) {
         final CustomerDTO customerDTO = accountService.getAccount(mobileNumber);
         return new ResponseEntity<>(customerDTO, HttpStatus.FOUND);
     }
 
     @PutMapping("update")
-    public ResponseEntity<ResponseDTO> updateAccountDetails(@RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<ResponseDTO> updateAccountDetails(@Valid @RequestBody CustomerDTO customerDTO) {
         final boolean isUpdated = accountService.updateAccount(customerDTO);
         if (isUpdated) {
             return new ResponseEntity<>(
@@ -53,7 +58,8 @@ public class AccountController {
     }
 
     @DeleteMapping("delete")
-    public ResponseEntity<ResponseDTO> deleteAccountDetails(@RequestParam String mobileNumber) {
+    public ResponseEntity<ResponseDTO> deleteAccountDetails(@Pattern(regexp = "(^$|[0-9]{9})", message = "Mobile number must be 9 digits")
+                                                            @RequestParam String mobileNumber) {
         final boolean isDeleted = accountService.deleteAccount(mobileNumber);
         if (isDeleted) {
             return new ResponseEntity<>(
