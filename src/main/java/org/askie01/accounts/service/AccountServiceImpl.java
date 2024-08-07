@@ -14,7 +14,6 @@ import org.askie01.accounts.repositories.AccountRepository;
 import org.askie01.accounts.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Data
@@ -34,8 +33,6 @@ public class AccountServiceImpl implements AccountService {
         if (optionalCustomer.isPresent()) {
             throw new MobilePhoneAlreadyExistsException("Mobile phone: '" + customerDTO.getMobileNumber() + "' already exists");
         }
-        customer.setCreatedAt(LocalDateTime.now());
-        customer.setCreatedBy("Anonymous");
         final Customer savedCustomer = customerRepository.save(customer);
         accountRepository.save(createAccount(savedCustomer));
     }
@@ -45,8 +42,6 @@ public class AccountServiceImpl implements AccountService {
         account.setCustomer(customer);
         account.setAccountType(AccountConstants.SAVINGS);
         account.setBranchAddress(AccountConstants.ADDRESS);
-        account.setCreatedAt(LocalDateTime.now());
-        account.setCreatedBy("Anonymous");
         return account;
     }
 
