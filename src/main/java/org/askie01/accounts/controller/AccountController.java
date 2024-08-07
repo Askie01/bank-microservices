@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @NoArgsConstructor
 @AllArgsConstructor
-@RequestMapping(path = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "account", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AccountController {
 
     @Autowired
     private AccountService accountService;
 
-    @PostMapping("/create")
+    @PostMapping("create")
     public ResponseEntity<ResponseDTO> createAccount(@RequestBody final CustomerDTO customerDTO) {
         accountService.createAccount(customerDTO);
         return new ResponseEntity<>
@@ -32,9 +32,23 @@ public class AccountController {
                         , HttpStatus.CREATED);
     }
 
-    @GetMapping("/get")
+    @GetMapping("get")
     public ResponseEntity<CustomerDTO> getAccountDetails(@RequestParam String mobileNumber) {
         final CustomerDTO customerDTO = accountService.getAccount(mobileNumber);
         return new ResponseEntity<>(customerDTO, HttpStatus.FOUND);
+    }
+
+    @PutMapping("update")
+    public ResponseEntity<ResponseDTO> updateAccountDetails(@RequestBody CustomerDTO customerDTO) {
+        final boolean isUpdated = accountService.updateAccount(customerDTO);
+        if (isUpdated) {
+            return new ResponseEntity<>(
+                    new ResponseDTO(AccountConstants.STATUS_200, AccountConstants.MESSAGE_200), HttpStatus.OK
+            );
+        } else {
+            return new ResponseEntity<>(
+                    new ResponseDTO(AccountConstants.STATUS_500, AccountConstants.MESSAGE_500), HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
     }
 }

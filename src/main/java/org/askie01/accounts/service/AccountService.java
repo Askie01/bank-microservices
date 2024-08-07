@@ -4,14 +4,20 @@ import org.askie01.accounts.dto.CustomerDTO;
 
 public interface AccountService {
     /**
-     * @param customerDTO - CustomerDTO object
+     * @param customerDTO CustomerDTO object
      */
-      void createAccount(CustomerDTO customerDTO);
+    void createAccount(CustomerDTO customerDTO);
 
     /**
-     * @param mobileNumber
-     * @return
+     * @param mobileNumber Input Mobile Number
+     * @return Accounts Details based on a given mobilePhone
      */
     CustomerDTO getAccount(String mobileNumber);
+
+    /**
+     * @param customerDTO CustomerDTO object
+     * @return boolean indicating if the update of Account details is successful or not
+     */
+    boolean updateAccount(CustomerDTO customerDTO);
 
 }
