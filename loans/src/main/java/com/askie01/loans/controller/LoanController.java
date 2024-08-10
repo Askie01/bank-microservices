@@ -144,7 +144,7 @@ public class LoanController {
             )
     })
     @DeleteMapping(path = "delete")
-    public ResponseEntity<ResponseDTO> deleteLoanDetails(@Pattern(regexp = "(^$|[0-9]{9})", message = "Mobile number must be 9 digits"),
+    public ResponseEntity<ResponseDTO> deleteLoanDetails(@Pattern(regexp = "(^$|[0-9]{9})", message = "Mobile number must be 9 digits")
                                                          @RequestParam String mobileNumber) {
         final boolean isDeleted = loanService.deleteLoan(mobileNumber);
         if (isDeleted) {

@@ -26,7 +26,7 @@ public class LoanServiceImpl implements LoanService {
     public void createLoan(String mobileNumber) {
         final Optional<Loan> optionalLoan = loanRepository.findByMobileNumber(mobileNumber);
         if (optionalLoan.isPresent()) {
-            throw new LoanAlreadyExistsException("Loan already registered with given mobileNumber: '" + mobileNumber + "'.")
+            throw new LoanAlreadyExistsException("Loan already registered with given mobileNumber: '" + mobileNumber + "'.");
         }
         loanRepository.save(createNewLoan(mobileNumber));
     }
