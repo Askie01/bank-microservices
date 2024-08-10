@@ -1,4 +1,4 @@
-package org.askie01.accounts.audit;
+package org.askie01.accounts.auditor;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
