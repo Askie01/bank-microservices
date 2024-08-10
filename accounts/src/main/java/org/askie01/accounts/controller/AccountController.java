@@ -10,7 +10,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.askie01.accounts.constant.AccountConstants;
 import org.askie01.accounts.dto.CustomerDTO;
 import org.askie01.accounts.dto.ErrorResponseDTO;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 @Data
 @Validated
 @RestController
-@NoArgsConstructor
 @AllArgsConstructor
 @Tag(
         name = "CRUD REST APIs for Accounts",
@@ -34,7 +32,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "account", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AccountController {
 
-    private AccountService accountService;
+    private final AccountService accountService;
 
     @Operation(
             summary = "Create Account REST API",
