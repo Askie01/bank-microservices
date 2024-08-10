@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "account", produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(
-        name = "CRUD REST APIs for Accounts",
-        description = "CRUD REST APIs to CREATE, UPDATE, FETCH and DELETE account details"
+        name = "CRUD REST APIs for Accounts in bank-microservices",
+        description = "CRUD REST APIs in bank-microservices to CREATE, UPDATE, FETCH and DELETE account details"
 )
 public class AccountController {
 
@@ -34,7 +34,7 @@ public class AccountController {
 
     @Operation(
             summary = "Create Account REST API",
-            description = "REST API to create a new Account"
+            description = "REST API to create a new Account inside bank-microservices"
     )
     @ApiResponse(
             responseCode = "201",

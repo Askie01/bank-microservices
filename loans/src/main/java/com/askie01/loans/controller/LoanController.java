@@ -18,17 +18,16 @@ import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Data
-@Controller
 @Validated
+@RestController
 @RequestMapping(path = "loan", produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(
-        name = "CRUD REST APIs for Loans",
-        description = "CRUD REST APIs to CREATE, UPDATE, GET and DELETE loan details"
+        name = "CRUD REST APIs for Loans in bank-microservices",
+        description = "CRUD REST APIs in bank-microservices to CREATE, UPDATE, GET and DELETE loan details"
 )
 public class LoanController {
     private final LoanService loanService;
@@ -36,7 +35,7 @@ public class LoanController {
 
     @Operation(
             summary = "Create Loan REST API",
-            description = "REST API to create new loan"
+            description = "REST API to create new loan inside bank-microservices"
     )
     @ApiResponses({
             @ApiResponse(
