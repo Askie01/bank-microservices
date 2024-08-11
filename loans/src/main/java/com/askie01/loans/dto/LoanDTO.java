@@ -21,7 +21,7 @@ public class LoanDTO {
     private String mobileNumber;
 
     @NotEmpty(message = "Loan number cannot be a null or empty")
-    @Pattern(regexp = "(^$|[0-9])", message = "Loan number can only contain digits")
+    @Pattern(regexp = "(^$|[0-9]+)", message = "Loan number can only contain digits")
     @Schema(
             description = "Loan number of the customer", example = "1"
     )

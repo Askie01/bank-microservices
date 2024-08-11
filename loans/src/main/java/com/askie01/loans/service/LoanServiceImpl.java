@@ -37,7 +37,7 @@ public class LoanServiceImpl implements LoanService {
      */
     private Loan createNewLoan(String mobileNumber) {
         final Loan loan = new Loan();
-        final long randomLoanNumber = 100000000000L + new Random().nextInt(900000000);
+        final long randomLoanNumber = 100_000_000_000L + new Random().nextInt(900_000_000);
         loan.setLoanNumber(Long.toString(randomLoanNumber));
         loan.setMobileNumber(mobileNumber);
         loan.setLoanType(LoanConstants.HOME_LOAN);
