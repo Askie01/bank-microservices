@@ -37,7 +37,7 @@ public class CardServiceImpl implements CardService {
      */
     private Card createNewCard(String mobileNumber) {
         final Card card = new Card();
-        final long randomCardNumber = 100000000000L + new Random().nextInt(900000000);
+        final long randomCardNumber = 100_000_000_000L + new Random().nextInt(900_000_000);
         card.setCardNumber(Long.toString(randomCardNumber));
         card.setMobileNumber(mobileNumber);
         card.setCardType(CardConstants.CREDIT_CARD);
