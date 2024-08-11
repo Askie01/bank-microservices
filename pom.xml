@@ -20,6 +20,12 @@
         <java.version>17</java.version>
     </properties>
 
+    <modules>
+        <module>accounts</module>
+        <module>loans</module>
+        <module>cards</module>
+    </modules>
+
     <dependencies>
 
         <dependency>

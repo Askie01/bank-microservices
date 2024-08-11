@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.askie01.accounts.constant.AccountConstants;
 import org.askie01.accounts.dto.CustomerDTO;
@@ -24,19 +23,18 @@ import org.springframework.web.bind.annotation.*;
 @Data
 @Validated
 @RestController
-@AllArgsConstructor
-@Tag(
-        name = "CRUD REST APIs for Accounts",
-        description = "CRUD REST APIs to CREATE, UPDATE, FETCH and DELETE account details"
-)
 @RequestMapping(path = "account", produces = MediaType.APPLICATION_JSON_VALUE)
+@Tag(
+        name = "CRUD REST APIs for Accounts in bank-microservices",
+        description = "CRUD REST APIs in bank-microservices to CREATE, UPDATE, FETCH and DELETE account details"
+)
 public class AccountController {
 
     private final AccountService accountService;
 
     @Operation(
             summary = "Create Account REST API",
-            description = "REST API to create a new Account"
+            description = "REST API to create a new Account inside bank-microservices"
     )
     @ApiResponse(
             responseCode = "201",
