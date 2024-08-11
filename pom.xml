@@ -21,6 +21,7 @@
     </properties>
 
     <modules>
+        <module>accounts</module>
         <module>loans</module>
         <module>cards</module>
     </modules>
