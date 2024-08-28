@@ -27,7 +27,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>loans:latest</name>
+                        <name>askie01/loans:latest</name>
                     </image>
                     <excludes>
                         <exclude>
