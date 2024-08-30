@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.askie01.accounts.constant.AccountConstants;
+import org.askie01.accounts.dto.AccountContactInfoDto;
 import org.askie01.accounts.dto.CustomerDTO;
 import org.askie01.accounts.dto.ErrorResponseDTO;
 import org.askie01.accounts.dto.ResponseDTO;
@@ -40,6 +41,9 @@ public class AccountController {
 
     @Autowired
     private Environment environment;
+
+    @Autowired
+    private AccountContactInfoDto accountContactInfoDto;
 
     @Operation(
             summary = "Create Account REST API",
@@ -203,5 +207,27 @@ public class AccountController {
     public ResponseEntity<String> getMavenVersion() {
         final String mavenVersion = environment.getProperty("MAVEN_HOME");
         return new ResponseEntity<>(mavenVersion, HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "Get contact info",
+            description = "Get contact info details that can be reached out in case of any issues."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status INTERNAL_SERVER_ERROR",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
+                    )
+            )}
+    )
+    @GetMapping("contact-info")
+    public ResponseEntity<AccountContactInfoDto> getContactInfo() {
+        return new ResponseEntity<>(accountContactInfoDto, HttpStatus.OK);
     }
 }
