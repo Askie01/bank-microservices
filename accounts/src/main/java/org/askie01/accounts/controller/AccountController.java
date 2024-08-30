@@ -14,6 +14,7 @@ import org.askie01.accounts.dto.CustomerDTO;
 import org.askie01.accounts.dto.ErrorResponseDTO;
 import org.askie01.accounts.dto.ResponseDTO;
 import org.askie01.accounts.service.AccountService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,9 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
 
     private final AccountService accountService;
+
+    @Value("${build.version}")
+    private String buildVersion;
 
     @Operation(
             summary = "Create Account REST API",
@@ -126,5 +130,27 @@ public class AccountController {
                     new ResponseDTO(AccountConstants.STATUS_417, AccountConstants.MESSAGE_417_DELETE), HttpStatus.EXPECTATION_FAILED
             );
         }
+    }
+
+    @Operation(
+            summary = "Get Build information",
+            description = "Get Build information that is deployed into accounts microservice."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status INTERNAL_SERVER_ERROR",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
+                    )
+            )}
+    )
+    @GetMapping(path = "build-info")
+    public ResponseEntity<String> getBuildVersion() {
+        return new ResponseEntity<>(buildVersion, HttpStatus.OK);
     }
 }
