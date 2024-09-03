@@ -10,7 +10,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.askie01.accounts.constant.AccountConstants;
-import org.askie01.accounts.dto.AccountContactInfoDto;
+import org.askie01.accounts.dto.AccountContactInfoDTO;
 import org.askie01.accounts.dto.CustomerDTO;
 import org.askie01.accounts.dto.ErrorResponseDTO;
 import org.askie01.accounts.dto.ResponseDTO;
@@ -43,7 +43,7 @@ public class AccountController {
     private Environment environment;
 
     @Autowired
-    private AccountContactInfoDto accountContactInfoDto;
+    private AccountContactInfoDTO accountContactInfoDto;
 
     @Operation(
             summary = "Create Account REST API",
@@ -227,7 +227,7 @@ public class AccountController {
             )}
     )
     @GetMapping("contact-info")
-    public ResponseEntity<AccountContactInfoDto> getContactInfo() {
+    public ResponseEntity<AccountContactInfoDTO> getContactInfo() {
         return new ResponseEntity<>(accountContactInfoDto, HttpStatus.OK);
     }
 }
