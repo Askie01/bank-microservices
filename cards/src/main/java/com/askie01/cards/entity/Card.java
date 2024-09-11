@@ -2,17 +2,15 @@ package com.askie01.cards.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "cards")
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@Entity
+@Table(name = "cards")
 public class Card extends AuditableEntity {
     private String mobileNumber;
     private String cardNumber;

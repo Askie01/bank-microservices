@@ -2,7 +2,10 @@ package com.askie01.cards.mapper;
 
 import com.askie01.cards.dto.CardDTO;
 import com.askie01.cards.entity.Card;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CardMapper {
 
     public static CardDTO map(Card source, CardDTO target) {
