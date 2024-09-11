@@ -3,7 +3,7 @@ package org.askie01.accounts.controller;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
-import org.askie01.accounts.constant.AccountConstants;
+import org.askie01.accounts.constant.ResponseConstants;
 import org.askie01.accounts.dto.AccountContactInformationDTO;
 import org.askie01.accounts.dto.CustomerDTO;
 import org.askie01.accounts.response.Response;
@@ -34,7 +34,7 @@ public class AccountController {
         accountService.createAccount(customerDTO);
         return new ResponseEntity<>
                 (new Response
-                        (AccountConstants.STATUS_201, AccountConstants.MESSAGE_201)
+                        (ResponseConstants.STATUS_201, ResponseConstants.MESSAGE_201)
                         , HttpStatus.CREATED);
     }
 
@@ -50,11 +50,11 @@ public class AccountController {
         final boolean isUpdated = accountService.updateAccount(customerDTO);
         if (isUpdated) {
             return new ResponseEntity<>(
-                    new Response(AccountConstants.STATUS_200, AccountConstants.MESSAGE_200), HttpStatus.OK
+                    new Response(ResponseConstants.STATUS_200, ResponseConstants.MESSAGE_200), HttpStatus.OK
             );
         } else {
             return new ResponseEntity<>(
-                    new Response(AccountConstants.STATUS_500, AccountConstants.MESSAGE_500), HttpStatus.INTERNAL_SERVER_ERROR
+                    new Response(ResponseConstants.STATUS_500, ResponseConstants.MESSAGE_500), HttpStatus.INTERNAL_SERVER_ERROR
             );
         }
     }
@@ -65,11 +65,11 @@ public class AccountController {
         final boolean isDeleted = accountService.deleteAccount(mobileNumber);
         if (isDeleted) {
             return new ResponseEntity<>(
-                    new Response(AccountConstants.STATUS_200, AccountConstants.MESSAGE_200), HttpStatus.OK
+                    new Response(ResponseConstants.STATUS_200, ResponseConstants.MESSAGE_200), HttpStatus.OK
             );
         } else {
             return new ResponseEntity<>(
-                    new Response(AccountConstants.STATUS_417, AccountConstants.MESSAGE_417_DELETE), HttpStatus.EXPECTATION_FAILED
+                    new Response(ResponseConstants.STATUS_417, ResponseConstants.MESSAGE_417), HttpStatus.EXPECTATION_FAILED
             );
         }
     }

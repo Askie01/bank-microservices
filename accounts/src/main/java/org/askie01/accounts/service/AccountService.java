@@ -1,7 +1,7 @@
 package org.askie01.accounts.service;
 
 import lombok.Data;
-import org.askie01.accounts.constant.AccountConstants;
+import org.askie01.accounts.constant.AccountType;
 import org.askie01.accounts.dto.AccountDTO;
 import org.askie01.accounts.dto.CustomerDTO;
 import org.askie01.accounts.entity.Account;
@@ -36,8 +36,8 @@ public class AccountService {
     private Account createAccount(Customer customer) {
         final Account account = new Account();
         account.setCustomer(customer);
-        account.setType(AccountConstants.SAVINGS);
-        account.setAddress(AccountConstants.ADDRESS);
+        account.setType(AccountType.SAVINGS);
+        account.setAddress("123 Main Street, New York");
         return account;
     }
 
