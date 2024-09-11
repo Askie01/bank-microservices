@@ -1,8 +1,11 @@
 package org.askie01.accounts.mapper;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.askie01.accounts.dto.CustomerDTO;
 import org.askie01.accounts.entity.Customer;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CustomerMapper {
     public static CustomerDTO map(Customer source, CustomerDTO target) {
         mapName(source, target);

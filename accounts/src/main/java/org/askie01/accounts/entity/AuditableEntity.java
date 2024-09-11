@@ -15,9 +15,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @Data
-@MappedSuperclass
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class AuditableEntity extends BaseEntity {
 

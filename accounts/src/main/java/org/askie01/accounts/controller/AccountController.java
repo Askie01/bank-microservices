@@ -3,7 +3,8 @@ package org.askie01.accounts.controller;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
-import org.askie01.accounts.constant.ResponseConstants;
+import org.askie01.accounts.constant.ResponseCode;
+import org.askie01.accounts.constant.ResponseMessage;
 import org.askie01.accounts.dto.AccountContactInformationDTO;
 import org.askie01.accounts.dto.CustomerDTO;
 import org.askie01.accounts.response.Response;
@@ -32,10 +33,8 @@ public class AccountController {
     @PostMapping
     public ResponseEntity<Response> createAccount(@Valid @RequestBody final CustomerDTO customerDTO) {
         accountService.createAccount(customerDTO);
-        return new ResponseEntity<>
-                (new Response
-                        (ResponseConstants.STATUS_201, ResponseConstants.MESSAGE_201)
-                        , HttpStatus.CREATED);
+        final Response response = new Response(ResponseCode.CREATED, ResponseMessage.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -47,31 +46,17 @@ public class AccountController {
 
     @PutMapping
     public ResponseEntity<Response> updateAccountDetails(@Valid @RequestBody CustomerDTO customerDTO) {
-        final boolean isUpdated = accountService.updateAccount(customerDTO);
-        if (isUpdated) {
-            return new ResponseEntity<>(
-                    new Response(ResponseConstants.STATUS_200, ResponseConstants.MESSAGE_200), HttpStatus.OK
-            );
-        } else {
-            return new ResponseEntity<>(
-                    new Response(ResponseConstants.STATUS_500, ResponseConstants.MESSAGE_500), HttpStatus.INTERNAL_SERVER_ERROR
-            );
-        }
+        accountService.updateAccount(customerDTO);
+        final Response response = new Response(ResponseCode.OK, ResponseMessage.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping
     public ResponseEntity<Response> deleteAccountDetails(@Pattern(regexp = "(^$|[0-9]{9})", message = "Mobile number must be 9 digits")
                                                          @RequestParam String mobileNumber) {
-        final boolean isDeleted = accountService.deleteAccount(mobileNumber);
-        if (isDeleted) {
-            return new ResponseEntity<>(
-                    new Response(ResponseConstants.STATUS_200, ResponseConstants.MESSAGE_200), HttpStatus.OK
-            );
-        } else {
-            return new ResponseEntity<>(
-                    new Response(ResponseConstants.STATUS_417, ResponseConstants.MESSAGE_417), HttpStatus.EXPECTATION_FAILED
-            );
-        }
+        accountService.deleteAccount(mobileNumber);
+        final Response response = new Response(ResponseCode.OK, ResponseMessage.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("build-information")

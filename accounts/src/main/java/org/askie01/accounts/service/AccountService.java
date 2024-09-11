@@ -56,33 +56,27 @@ public class AccountService {
         return customerDTO;
     }
 
-    public boolean updateAccount(CustomerDTO customerDTO) {
-        boolean isUpdated = false;
+    public void updateAccount(CustomerDTO customerDTO) {
         final AccountDTO accountDTO = customerDTO.getAccountDTO();
-        if (accountDTO != null) {
-            final Account account = accountRepository
-                    .findById(accountDTO.getId())
-                    .orElseThrow(
-                            () -> new ResourceNotFoundException("Account", "AccountID", accountDTO.getId().toString())
-                    );
-            AccountMapper.map(accountDTO, account);
-            final Account updatedAccount = accountRepository.save(account);
+        final Account account = accountRepository
+                .findById(accountDTO.getId())
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Account", "AccountID", accountDTO.getId().toString())
+                );
+        AccountMapper.map(accountDTO, account);
+        final Account updatedAccount = accountRepository.save(account);
 
-            final Long customerId = updatedAccount.getCustomer().getId();
-            final Customer customer = customerRepository
-                    .findById(customerId)
-                    .orElseThrow(
-                            () -> new ResourceNotFoundException("Customer", "CustomerID", customerId.toString())
-                    );
-            CustomerMapper.map(customerDTO, customer);
-            customerRepository.save(customer);
-            isUpdated = true;
-        }
-
-        return isUpdated;
+        final Long customerId = updatedAccount.getCustomer().getId();
+        final Customer customer = customerRepository
+                .findById(customerId)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Customer", "CustomerID", customerId.toString())
+                );
+        CustomerMapper.map(customerDTO, customer);
+        customerRepository.save(customer);
     }
 
-    public boolean deleteAccount(String mobileNumber) {
+    public void deleteAccount(String mobileNumber) {
         final Customer customer = customerRepository
                 .findByMobileNumber(mobileNumber)
                 .orElseThrow(
@@ -90,6 +84,5 @@ public class AccountService {
                 );
         accountRepository.deleteByCustomerId(customer.getId());
         customerRepository.deleteById(customer.getId());
-        return true;
     }
 }
