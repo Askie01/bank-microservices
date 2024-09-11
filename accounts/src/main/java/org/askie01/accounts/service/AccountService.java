@@ -10,8 +10,8 @@ import org.askie01.accounts.exception.MobilePhoneAlreadyExistsException;
 import org.askie01.accounts.exception.ResourceNotFoundException;
 import org.askie01.accounts.mapper.AccountMapper;
 import org.askie01.accounts.mapper.CustomerMapper;
-import org.askie01.accounts.repositories.AccountRepository;
-import org.askie01.accounts.repositories.CustomerRepository;
+import org.askie01.accounts.repository.AccountRepository;
+import org.askie01.accounts.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

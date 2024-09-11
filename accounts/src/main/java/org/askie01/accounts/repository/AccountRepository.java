@@ -1,4 +1,4 @@
-package org.askie01.accounts.repositories;
+package org.askie01.accounts.repository;
 
 import org.askie01.accounts.entity.Account;
 import org.askie01.accounts.entity.Customer;
