@@ -8,11 +8,6 @@ import java.util.Optional;
 
 @Component("auditor")
 public class Auditor implements AuditorAware<String> {
-    /**
-     * Returns the current auditor of the application.
-     *
-     * @return the current auditor.
-     */
     @NotNull
     @Override
     public Optional<String> getCurrentAuditor() {
