@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Data
 @ConfigurationProperties(prefix = "cards")
-public class CardContactInfoDTO {
+public class CardContactInformationDTO {
     private String message;
     private Map<String, String> contactDetails;
     private List<Integer> onCallSupport;

@@ -1,7 +1,7 @@
 package com.askie01.cards.controller;
 
 import com.askie01.cards.constant.CardConstants;
-import com.askie01.cards.dto.CardContactInfoDTO;
+import com.askie01.cards.dto.CardContactInformationDTO;
 import com.askie01.cards.dto.CardDTO;
 import com.askie01.cards.dto.ErrorResponseDTO;
 import com.askie01.cards.dto.ResponseDTO;
@@ -44,7 +44,7 @@ public class CardController {
     private Environment environment;
 
     @Autowired
-    private CardContactInfoDTO cardContactInfoDTO;
+    private CardContactInformationDTO cardContactInformationDTO;
 
     @Operation(
             summary = "Create Card REST API",
@@ -260,7 +260,7 @@ public class CardController {
             )}
     )
     @GetMapping(path = "contact-info")
-    public ResponseEntity<CardContactInfoDTO> getContactInfo() {
-        return new ResponseEntity<>(cardContactInfoDTO, HttpStatus.OK);
+    public ResponseEntity<CardContactInformationDTO> getContactInfo() {
+        return new ResponseEntity<>(cardContactInformationDTO, HttpStatus.OK);
     }
 }
