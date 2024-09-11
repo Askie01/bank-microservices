@@ -1,6 +1,7 @@
 package com.askie01.cards.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,12 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "cards")
 @EqualsAndHashCode(callSuper = true)
-public class Card extends BaseEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cardId;
-
+public class Card extends AuditableEntity {
     private String mobileNumber;
     private String cardNumber;
     private String cardType;

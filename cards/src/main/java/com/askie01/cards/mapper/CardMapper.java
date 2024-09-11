@@ -5,23 +5,83 @@ import com.askie01.cards.entity.Card;
 
 public class CardMapper {
 
-    public static CardDTO mapToCardDTO(Card card, CardDTO cardDTO) {
-        cardDTO.setCardNumber(card.getCardNumber());
-        cardDTO.setCardType(card.getCardType());
-        cardDTO.setMobileNumber(card.getMobileNumber());
-        cardDTO.setTotalLimit(card.getTotalLimit());
-        cardDTO.setAvailableAmount(card.getAvailableAmount());
-        cardDTO.setAmountUsed(card.getAmountUsed());
-        return cardDTO;
+    public static CardDTO map(Card source, CardDTO target) {
+        mapCardNumber(source, target);
+        mapCardType(source, target);
+        mapMobileNumber(source, target);
+        mapTotalLimit(source, target);
+        mapAvailableAmount(source, target);
+        mapAmountUsed(source, target);
+        return target;
     }
 
-    public static Card mapToCard(CardDTO cardDTO, Card card) {
-        card.setCardNumber(cardDTO.getCardNumber());
-        card.setCardType(cardDTO.getCardType());
-        card.setMobileNumber(cardDTO.getMobileNumber());
-        card.setTotalLimit(cardDTO.getTotalLimit());
-        card.setAvailableAmount(cardDTO.getAvailableAmount());
-        card.setAmountUsed(card.getAmountUsed());
-        return card;
+    private static void mapCardNumber(Card source, CardDTO target) {
+        final String cardNumber = source.getCardNumber();
+        target.setCardNumber(cardNumber);
+    }
+
+    private static void mapCardType(Card source, CardDTO target) {
+        final String cardType = source.getCardType();
+        target.setCardType(cardType);
+    }
+
+    private static void mapMobileNumber(Card source, CardDTO target) {
+        final String mobileNumber = source.getMobileNumber();
+        target.setMobileNumber(mobileNumber);
+    }
+
+    private static void mapTotalLimit(Card source, CardDTO target) {
+        final int totalLimit = source.getTotalLimit();
+        target.setTotalLimit(totalLimit);
+    }
+
+    private static void mapAvailableAmount(Card source, CardDTO target) {
+        final int availableAmount = source.getAvailableAmount();
+        target.setAvailableAmount(availableAmount);
+    }
+
+    private static void mapAmountUsed(Card source, CardDTO target) {
+        final int amountUsed = source.getAmountUsed();
+        target.setAmountUsed(amountUsed);
+    }
+
+    public static Card map(CardDTO source, Card target) {
+        mapCardNumber(source, target);
+        mapCardType(source, target);
+        mapMobileNumber(source, target);
+        mapTotalLimit(source, target);
+        mapAvailableAmount(source, target);
+        mapAmountUsed(source, target);
+        return target;
+    }
+
+    private static void mapCardNumber(CardDTO source, Card target) {
+        final String cardNumber = source.getCardNumber();
+        target.setCardNumber(cardNumber);
+    }
+
+    private static void mapCardType(CardDTO source, Card target) {
+        final String cardType = source.getCardType();
+        target.setCardType(cardType);
+    }
+
+    private static void mapMobileNumber(CardDTO source, Card target) {
+        final String mobileNumber = source.getMobileNumber();
+        target.setMobileNumber(mobileNumber);
+    }
+
+    private static void mapTotalLimit(CardDTO source, Card target) {
+        final int totalLimit = source.getTotalLimit();
+        target.setTotalLimit(totalLimit);
+    }
+
+    private static void mapAvailableAmount(CardDTO source, Card target) {
+        final int availableAmount = source.getAvailableAmount();
+        target.setAvailableAmount(availableAmount);
+    }
+
+    private static void mapAmountUsed(CardDTO source, Card target) {
+        final int amountUsed = source.getAmountUsed();
+        target.setAmountUsed(amountUsed);
     }
 }
