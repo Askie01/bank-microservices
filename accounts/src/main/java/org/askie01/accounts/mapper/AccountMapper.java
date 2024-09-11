@@ -14,19 +14,19 @@ public class AccountMapper {
         return target;
     }
 
-    private static void mapId(Account account, AccountDTO accountDTO) {
-        final Long id = account.getId();
-        accountDTO.setId(id);
+    private static void mapId(Account source, AccountDTO target) {
+        final Long id = source.getId();
+        target.setId(id);
     }
 
-    private static void mapType(Account account, AccountDTO accountDTO) {
-        final String type = account.getType();
-        accountDTO.setType(type);
+    private static void mapType(Account source, AccountDTO target) {
+        final String type = source.getType();
+        target.setType(type);
     }
 
-    private static void mapAddress(Account account, AccountDTO accountDTO) {
-        final String address = account.getAddress();
-        accountDTO.setAddress(address);
+    private static void mapAddress(Account source, AccountDTO target) {
+        final String address = source.getAddress();
+        target.setAddress(address);
     }
 
     public static Account map(AccountDTO source, Account target) {
@@ -36,18 +36,18 @@ public class AccountMapper {
         return target;
     }
 
-    private static void mapId(AccountDTO accountDTO, Account account) {
-        final Long id = accountDTO.getId();
-        account.setId(id);
+    private static void mapId(AccountDTO source, Account target) {
+        final Long id = source.getId();
+        target.setId(id);
     }
 
-    private static void mapType(AccountDTO accountDTO, Account account) {
-        final String type = accountDTO.getType();
-        account.setType(type);
+    private static void mapType(AccountDTO source, Account target) {
+        final String type = source.getType();
+        target.setType(type);
     }
 
-    private static void mapAddress(AccountDTO accountDTO, Account account) {
-        final String address = accountDTO.getAddress();
-        account.setAddress(address);
+    private static void mapAddress(AccountDTO source, Account target) {
+        final String address = source.getAddress();
+        target.setAddress(address);
     }
 }

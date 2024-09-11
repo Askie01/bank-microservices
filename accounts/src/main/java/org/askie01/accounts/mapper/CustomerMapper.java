@@ -14,19 +14,19 @@ public class CustomerMapper {
         return target;
     }
 
-    private static void mapName(Customer customer, CustomerDTO customerDTO) {
-        final String name = customer.getName();
-        customerDTO.setName(name);
+    private static void mapName(Customer source, CustomerDTO target) {
+        final String name = source.getName();
+        target.setName(name);
     }
 
-    private static void mapEmail(Customer customer, CustomerDTO customerDTO) {
-        final String email = customer.getEmail();
-        customerDTO.setEmail(email);
+    private static void mapEmail(Customer source, CustomerDTO target) {
+        final String email = source.getEmail();
+        target.setEmail(email);
     }
 
-    private static void mapMobileNumber(Customer customer, CustomerDTO customerDTO) {
-        final String mobileNumber = customer.getMobileNumber();
-        customerDTO.setMobileNumber(mobileNumber);
+    private static void mapMobileNumber(Customer source, CustomerDTO target) {
+        final String mobileNumber = source.getMobileNumber();
+        target.setMobileNumber(mobileNumber);
     }
 
     public static Customer map(CustomerDTO source, Customer target) {
@@ -36,18 +36,18 @@ public class CustomerMapper {
         return target;
     }
 
-    private static void mapName(CustomerDTO customerDTO, Customer customer) {
-        final String name = customerDTO.getName();
-        customer.setName(name);
+    private static void mapName(CustomerDTO source, Customer target) {
+        final String name = source.getName();
+        target.setName(name);
     }
 
-    private static void mapEmail(CustomerDTO customerDTO, Customer customer) {
-        final String email = customerDTO.getEmail();
-        customer.setEmail(email);
+    private static void mapEmail(CustomerDTO source, Customer target) {
+        final String email = source.getEmail();
+        target.setEmail(email);
     }
 
-    private static void mapMobileNumber(CustomerDTO customerDTO, Customer customer) {
-        final String mobileNumber = customerDTO.getMobileNumber();
-        customer.setMobileNumber(mobileNumber);
+    private static void mapMobileNumber(CustomerDTO source, Customer target) {
+        final String mobileNumber = source.getMobileNumber();
+        target.setMobileNumber(mobileNumber);
     }
 }
