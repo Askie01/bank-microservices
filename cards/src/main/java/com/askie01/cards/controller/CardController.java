@@ -41,24 +41,24 @@ public class CardController {
     }
 
     @GetMapping("get")
-    public ResponseEntity<CardDTO> getCardDetails(@Min(value = 100_000_000, message = "Mobile number must be at least 9 digits")
-                                                  @Max(value = 999_999_999, message = "Mobile number must be at most 9 digits")
-                                                  @RequestParam Integer mobileNumber) {
+    public ResponseEntity<CardDTO> getCardDTO(@Min(value = 100_000_000, message = "Mobile number must be at least 9 digits")
+                                              @Max(value = 999_999_999, message = "Mobile number must be at most 9 digits")
+                                              @RequestParam Integer mobileNumber) {
         final CardDTO cardDTO = cardService.getCardDTO(mobileNumber);
         return new ResponseEntity<>(cardDTO, HttpStatus.OK);
     }
 
     @PutMapping("update")
-    public ResponseEntity<Response> updateCardDetails(@Valid @RequestBody CardUpdateRequest request) {
+    public ResponseEntity<Response> updateCard(@Valid @RequestBody CardUpdateRequest request) {
         cardService.updateCard(request);
         final Response response = new Response(ResponseCode.OK, ResponseMessage.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("delete")
-    public ResponseEntity<Response> deleteCardDetails(@Min(value = 100_000_000, message = "Mobile number must be at least 9 digits")
-                                                      @Max(value = 999_999_999, message = "Mobile number must be at most 9 digits")
-                                                      @RequestParam Integer mobileNumber) {
+    public ResponseEntity<Response> deleteCard(@Min(value = 100_000_000, message = "Mobile number must be at least 9 digits")
+                                               @Max(value = 999_999_999, message = "Mobile number must be at most 9 digits")
+                                               @RequestParam Integer mobileNumber) {
         cardService.deleteCard(mobileNumber);
         final Response response = new Response(ResponseCode.OK, ResponseMessage.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
