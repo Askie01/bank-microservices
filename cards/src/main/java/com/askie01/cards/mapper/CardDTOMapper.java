@@ -6,14 +6,14 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class CardMapper {
+public class CardDTOMapper {
 
-    public static CardDTO mapToCardDTO(Card card) {
-        final CardDTO cardDTO = new CardDTO();
-        return map(card, cardDTO);
+    public static Card mapToCard(CardDTO cardDTO) {
+        final Card card = new Card();
+        return map(cardDTO, card);
     }
 
-    public static CardDTO map(Card source, CardDTO target) {
+    public static Card map(CardDTO source, Card target) {
         mapNumber(source, target);
         mapType(source, target);
         mapMobileNumber(source, target);
@@ -23,32 +23,32 @@ public class CardMapper {
         return target;
     }
 
-    private static void mapNumber(Card source, CardDTO target) {
+    private static void mapNumber(CardDTO source, Card target) {
         final long number = source.getNumber();
         target.setNumber(number);
     }
 
-    private static void mapType(Card source, CardDTO target) {
+    private static void mapType(CardDTO source, Card target) {
         final String type = source.getType();
         target.setType(type);
     }
 
-    private static void mapMobileNumber(Card source, CardDTO target) {
+    private static void mapMobileNumber(CardDTO source, Card target) {
         final int mobileNumber = source.getMobileNumber();
         target.setMobileNumber(mobileNumber);
     }
 
-    private static void mapMoneyLimit(Card source, CardDTO target) {
+    private static void mapMoneyLimit(CardDTO source, Card target) {
         final int moneyLimit = source.getMoneyLimit();
         target.setMoneyLimit(moneyLimit);
     }
 
-    private static void mapMoneyUsed(Card source, CardDTO target) {
+    private static void mapMoneyUsed(CardDTO source, Card target) {
         final int moneyUsed = source.getMoneyUsed();
         target.setMoneyUsed(moneyUsed);
     }
 
-    private static void mapMoneyAvailable(Card source, CardDTO target) {
+    private static void mapMoneyAvailable(CardDTO source, Card target) {
         final int moneyAvailable = source.getMoneyAvailable();
         target.setMoneyAvailable(moneyAvailable);
     }

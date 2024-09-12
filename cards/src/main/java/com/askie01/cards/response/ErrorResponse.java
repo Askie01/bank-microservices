@@ -2,7 +2,6 @@ package com.askie01.cards.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
@@ -10,7 +9,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ErrorResponse {
     private String path;
-    private HttpStatus code;
+    private Integer code;
     private String message;
     private LocalDateTime timestamp;
 }

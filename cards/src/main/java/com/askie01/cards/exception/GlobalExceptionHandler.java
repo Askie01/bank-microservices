@@ -1,5 +1,6 @@
 package com.askie01.cards.exception;
 
+import com.askie01.cards.constant.ResponseCode;
 import com.askie01.cards.response.ErrorResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -48,7 +49,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorResponse> handleGlobalException(Exception exception, WebRequest webRequest) {
         final ErrorResponse errorResponse = new ErrorResponse(
                 webRequest.getDescription(false),
-                HttpStatus.INTERNAL_SERVER_ERROR,
+                ResponseCode.INTERVAL_SERVER_ERROR,
                 exception.getMessage(),
                 LocalDateTime.now()
         );
@@ -59,7 +60,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException exception, WebRequest webRequest) {
         final ErrorResponse errorResponse = new ErrorResponse(
                 webRequest.getDescription(false),
-                HttpStatus.NOT_FOUND,
+                ResponseCode.NOT_FOUND,
                 exception.getMessage(),
                 LocalDateTime.now()
         );
@@ -70,7 +71,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorResponse> handleCardAlreadyExistsException(CardAlreadyExistsException exception, WebRequest webRequest) {
         final ErrorResponse errorResponse = new ErrorResponse(
                 webRequest.getDescription(false),
-                HttpStatus.BAD_REQUEST,
+                ResponseCode.BAD_REQUEST,
                 exception.getMessage(),
                 LocalDateTime.now()
         );

@@ -2,12 +2,15 @@ package com.askie01.cards.controller;
 
 import com.askie01.cards.constant.ResponseCode;
 import com.askie01.cards.constant.ResponseMessage;
-import com.askie01.cards.dto.CardContactInformationDTO;
 import com.askie01.cards.dto.CardDTO;
+import com.askie01.cards.dto.ContactInformationDTO;
+import com.askie01.cards.requests.CardCreationRequest;
+import com.askie01.cards.requests.CardUpdateRequest;
 import com.askie01.cards.response.Response;
 import com.askie01.cards.service.CardService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -28,40 +31,40 @@ public class CardController {
 
     private final CardService cardService;
     private final Environment environment;
-    private final CardContactInformationDTO cardContactInformationDTO;
+    private final ContactInformationDTO contactInformationDTO;
 
     @PostMapping("create")
-    public ResponseEntity<Response> createCard(@Valid
-                                               @Pattern(regexp = "(^$|[0-9]{9})", message = "Mobile number must be 9 digits")
-                                               @RequestParam String mobileNumber) {
-        cardService.createCard(mobileNumber);
+    public ResponseEntity<Response> createCard(@Valid @RequestBody CardCreationRequest request) {
+        cardService.createCard(request);
         final Response response = new Response(ResponseCode.CREATED, ResponseMessage.CREATED);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("get")
-    public ResponseEntity<CardDTO> getCardDetails(@Pattern(regexp = "(^$|[0-9]{9})", message = "Mobile number must be 9 digits")
-                                                  @RequestParam String mobileNumber) {
-        final CardDTO cardDTO = cardService.getCard(mobileNumber);
+    public ResponseEntity<CardDTO> getCardDetails(@Min(value = 100_000_000, message = "Mobile number must be at least 9 digits")
+                                                  @Max(value = 999_999_999, message = "Mobile number must be at most 9 digits")
+                                                  @RequestParam Integer mobileNumber) {
+        final CardDTO cardDTO = cardService.getCardDTO(mobileNumber);
         return new ResponseEntity<>(cardDTO, HttpStatus.OK);
     }
 
     @PutMapping("update")
-    public ResponseEntity<Response> updateCardDetails(@Valid @RequestBody CardDTO cardDTO) {
-        cardService.updateCard(cardDTO);
+    public ResponseEntity<Response> updateCardDetails(@Valid @RequestBody CardUpdateRequest request) {
+        cardService.updateCard(request);
         final Response response = new Response(ResponseCode.OK, ResponseMessage.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("delete")
-    public ResponseEntity<Response> deleteCardDetails(@Pattern(regexp = "(^$|[0-9]{9})", message = "Mobile number must be 9 digits")
-                                                      @RequestParam String mobileNumber) {
+    public ResponseEntity<Response> deleteCardDetails(@Min(value = 100_000_000, message = "Mobile number must be at least 9 digits")
+                                                      @Max(value = 999_999_999, message = "Mobile number must be at most 9 digits")
+                                                      @RequestParam Integer mobileNumber) {
         cardService.deleteCard(mobileNumber);
         final Response response = new Response(ResponseCode.OK, ResponseMessage.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping(path = "build-info")
+    @GetMapping(path = "build-version")
     public ResponseEntity<String> getBuildVersion() {
         return new ResponseEntity<>(buildVersion, HttpStatus.OK);
     }
@@ -78,8 +81,8 @@ public class CardController {
         return new ResponseEntity<>(mavenVersion, HttpStatus.OK);
     }
 
-    @GetMapping(path = "contact-info")
-    public ResponseEntity<CardContactInformationDTO> getContactInfo() {
-        return new ResponseEntity<>(cardContactInformationDTO, HttpStatus.OK);
+    @GetMapping(path = "contact-information")
+    public ResponseEntity<ContactInformationDTO> getContactInformationDTO() {
+        return new ResponseEntity<>(contactInformationDTO, HttpStatus.OK);
     }
 }

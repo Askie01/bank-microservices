@@ -1,13 +1,15 @@
 package com.askie01.cards.service;
 
-import com.askie01.cards.constant.CardLimit;
-import com.askie01.cards.constant.CardType;
 import com.askie01.cards.dto.CardDTO;
 import com.askie01.cards.entity.Card;
 import com.askie01.cards.exception.CardAlreadyExistsException;
 import com.askie01.cards.exception.ResourceNotFoundException;
+import com.askie01.cards.mapper.CardCreationRequestMapper;
 import com.askie01.cards.mapper.CardMapper;
+import com.askie01.cards.mapper.CardUpdateRequestMapper;
 import com.askie01.cards.repository.CardRepository;
+import com.askie01.cards.requests.CardCreationRequest;
+import com.askie01.cards.requests.CardUpdateRequest;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
@@ -20,45 +22,56 @@ public class CardService {
 
     private final CardRepository cardRepository;
 
-    public void createCard(String mobileNumber) {
+    public void createCard(CardCreationRequest request) {
+        final Integer mobileNumber = request.getMobileNumber();
         final Optional<Card> optionalCard = cardRepository.findByMobileNumber(mobileNumber);
-        if (optionalCard.isPresent()) {
-            throw new CardAlreadyExistsException("Card already registered with given mobileNumber: '" + mobileNumber + "'.");
+        final boolean cardExists = optionalCard.isPresent();
+        if (cardExists) {
+            throw new CardAlreadyExistsException("Card with mobileNumber: '" + mobileNumber + "' already exists.");
         }
-        cardRepository.save(createNewCard(mobileNumber));
-    }
-
-    private Card createNewCard(String mobileNumber) {
-        final Card card = new Card();
-        final long randomCardNumber = 100_000_000_000L + new Random().nextInt(900_000_000);
-        card.setCardNumber(Long.toString(randomCardNumber));
-        card.setMobileNumber(mobileNumber);
-        card.setCardType(CardType.CREDIT);
-        card.setTotalLimit(CardLimit.DEFAULT);
-        card.setAmountUsed(0);
-        card.setAvailableAmount(CardLimit.DEFAULT);
-        return card;
-    }
-
-    public CardDTO getCard(String mobileNumber) {
-        final Card card = cardRepository.findByMobileNumber(mobileNumber).orElseThrow(
-                () -> new ResourceNotFoundException("Card", "mobileNumber", mobileNumber)
-        );
-        return CardMapper.map(card, new CardDTO());
-    }
-
-    public void updateCard(CardDTO cardDTO) {
-        final Card card = cardRepository.findByCardNumber(cardDTO.getCardNumber()).orElseThrow(
-                () -> new ResourceNotFoundException("Card", "CardNumber", cardDTO.getCardNumber())
-        );
-        CardMapper.map(cardDTO, card);
+        final Card card = createNewCard(request);
         cardRepository.save(card);
     }
 
-    public void deleteCard(String mobileNumber) {
-        final Card card = cardRepository.findByMobileNumber(mobileNumber).orElseThrow(
-                () -> new ResourceNotFoundException("Card", "mobileNumber", mobileNumber)
-        );
-        cardRepository.deleteById(card.getId());
+    private Card createNewCard(CardCreationRequest request) {
+        final Card card = CardCreationRequestMapper.mapToCard(request);
+        final long randomCardNumber = 1000_0000_0000_0000L + new Random().nextLong(9000_0000_0000_0000L);
+        card.setNumber(randomCardNumber);
+        card.setMoneyAvailable(0);
+        card.setMoneyUsed(0);
+        return card;
+    }
+
+    public CardDTO getCardDTO(Integer mobileNumber) {
+        final Optional<Card> optionalCard = cardRepository.findByMobileNumber(mobileNumber);
+        final boolean cardExists = optionalCard.isPresent();
+        if (!cardExists) {
+            throw new ResourceNotFoundException("Card", "mobileNumber", mobileNumber);
+        }
+        final Card card = optionalCard.get();
+        return CardMapper.mapToCardDTO(card);
+    }
+
+    public void updateCard(CardUpdateRequest request) {
+        final Long cardNumber = request.getNumber();
+        final Optional<Card> optionalCard = cardRepository.findByNumber(cardNumber);
+        final boolean cardExists = optionalCard.isPresent();
+        if (!cardExists) {
+            throw new ResourceNotFoundException("Card", "CardNumber", cardNumber);
+        }
+        final Card card = optionalCard.get();
+        CardUpdateRequestMapper.map(request, card);
+        cardRepository.save(card);
+    }
+
+    public void deleteCard(Integer mobileNumber) {
+        final Optional<Card> cardOptional = cardRepository.findByMobileNumber(mobileNumber);
+        final boolean cardExists = cardOptional.isPresent();
+        if (!cardExists) {
+            throw new ResourceNotFoundException("Card", "mobileNumber", mobileNumber);
+        }
+        final Card card = cardOptional.get();
+        final Long id = card.getId();
+        cardRepository.deleteById(id);
     }
 }
