@@ -12,10 +12,10 @@ import lombok.ToString;
 @Entity
 @Table(name = "loans")
 public class Loan extends AuditableEntity {
-    private String mobileNumber;
-    private String loanNumber;
-    private String loanType;
-    private int totalLoan;
-    private int amountPaid;
-    private int outstandingAmount;
+    private Long number;
+    private String type;
+    private Integer mobileNumber;
+    private Integer moneyLoaned;
+    private Integer moneyPaid;
+    private Integer moneyRemaining;
 }
