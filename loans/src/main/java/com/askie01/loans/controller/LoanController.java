@@ -3,12 +3,14 @@ package com.askie01.loans.controller;
 
 import com.askie01.loans.constant.ResponseCode;
 import com.askie01.loans.constant.ResponseMessage;
-import com.askie01.loans.dto.LoanContactInformationDTO;
+import com.askie01.loans.dto.ContactInformationDTO;
 import com.askie01.loans.dto.LoanDTO;
+import com.askie01.loans.request.create.CreateLoanRequest;
 import com.askie01.loans.response.Response;
 import com.askie01.loans.service.LoanService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -29,40 +31,41 @@ public class LoanController {
 
     private final LoanService loanService;
     private final Environment environment;
-    private final LoanContactInformationDTO loanContactInformationDTO;
+    private final ContactInformationDTO contactInformationDTO;
 
     @PostMapping(path = "create")
-    public ResponseEntity<Response> createLoan(@Pattern(regexp = "(^$|[0-9]{9})", message = "Mobile number must be 9 digits.")
-                                               @RequestParam String mobileNumber) {
-        loanService.createLoan(mobileNumber);
+    public ResponseEntity<Response> createLoan(@Valid @RequestBody CreateLoanRequest request) {
+        loanService.createLoan(request);
         final Response response = new Response(ResponseCode.CREATED, ResponseMessage.CREATED);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
 
     @GetMapping(path = "get")
-    public ResponseEntity<LoanDTO> getLoanDetails(@Pattern(regexp = "(^$|[0-9]{9})", message = "Mobile number must be 9 digits")
-                                                  @RequestParam String mobileNumber) {
-        final LoanDTO loanDTO = loanService.getLoan(mobileNumber);
+    public ResponseEntity<LoanDTO> getLoanDTO(@Min(value = 100_000_000, message = "Mobile number must be at least 9 digits")
+                                              @Max(value = 999_999_999, message = "Mobile number must be at most 9 digits")
+                                              @RequestParam Integer mobileNumber) {
+        final LoanDTO loanDTO = loanService.getLoanDTO(mobileNumber);
         return new ResponseEntity<>(loanDTO, HttpStatus.OK);
     }
 
     @PutMapping(path = "update")
-    public ResponseEntity<Response> updateLoanDetails(@Valid @RequestBody LoanDTO loanDTO) {
-        loanService.updateLoan(loanDTO);
+    public ResponseEntity<Response> updateLoan(@Valid @RequestBody LoanUpdateRequest request) {
+        loanService.updateLoan(request);
         final Response response = new Response(ResponseCode.OK, ResponseMessage.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping(path = "delete")
-    public ResponseEntity<Response> deleteLoanDetails(@Pattern(regexp = "(^$|[0-9]{9})", message = "Mobile number must be 9 digits")
-                                                      @RequestParam String mobileNumber) {
+    public ResponseEntity<Response> deleteLoan(@Min(value = 100_000_000, message = "Mobile number must be at least 9 digits")
+                                               @Max(value = 999_999_999, message = "Mobile number must be at most 9 digits")
+                                               @RequestParam Integer mobileNumber) {
         loanService.deleteLoan(mobileNumber);
         final Response response = new Response(ResponseCode.OK, ResponseMessage.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping(path = "build-info")
+    @GetMapping(path = "build-information")
     public ResponseEntity<String> getBuildVersion() {
         return new ResponseEntity<>(buildVersion, HttpStatus.OK);
     }
@@ -79,8 +82,8 @@ public class LoanController {
         return new ResponseEntity<>(mavenVersion, HttpStatus.OK);
     }
 
-    @GetMapping(path = "contact-info")
-    public ResponseEntity<LoanContactInformationDTO> getContactInfo() {
-        return new ResponseEntity<>(loanContactInformationDTO, HttpStatus.OK);
+    @GetMapping(path = "contact-information")
+    public ResponseEntity<ContactInformationDTO> getContactInformationDTO() {
+        return new ResponseEntity<>(contactInformationDTO, HttpStatus.OK);
     }
 }
