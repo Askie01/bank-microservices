@@ -1,5 +1,6 @@
 package com.askie01.loans.exception;
 
+import com.askie01.loans.constant.ResponseCode;
 import com.askie01.loans.response.ErrorResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -48,22 +49,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorResponse> handleGlobalException(Exception exception, WebRequest webRequest) {
         final ErrorResponse errorResponse = new ErrorResponse(
                 webRequest.getDescription(false),
-                HttpStatus.INTERNAL_SERVER_ERROR,
+                ResponseCode.INTERVAL_SERVER_ERROR,
                 exception.getMessage(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException exception, WebRequest webRequest) {
         final ErrorResponse errorResponse = new ErrorResponse(
                 webRequest.getDescription(false),
-                HttpStatus.NOT_FOUND,
+                ResponseCode.NOT_FOUND,
                 exception.getMessage(),
                 LocalDateTime.now()
         );
-
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
@@ -71,11 +71,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorResponse> handleLoanAlreadyExistsException(LoanAlreadyExistsException exception, WebRequest webRequest) {
         final ErrorResponse errorResponse = new ErrorResponse(
                 webRequest.getDescription(false),
-                HttpStatus.BAD_REQUEST,
+                ResponseCode.BAD_REQUEST,
                 exception.getMessage(),
                 LocalDateTime.now()
         );
-
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 }
