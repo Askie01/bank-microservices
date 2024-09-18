@@ -15,7 +15,7 @@ public class LoanCreateRequest implements CreateRequest {
             message = "Mobile number must start with '+' followed by 2-3 digits, a space, and 8-15 digits")
     private String mobileNumber;
 
-    @NotEmpty(message = "Type name cannot be null/empty")
+    @NotEmpty(message = "Loan type name cannot be null/empty")
     private String loanTypeName;
 
     @DecimalMin(value = "0.01", message = "Money loaned must be at least 0.01")
