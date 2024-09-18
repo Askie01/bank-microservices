@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "8cabf039-f8ad-4b3b-aadd-24b79dddfcc3",
+		"_postman_id": "843d0180-6859-43f8-88b2-ab05170a3b8b",
 		"name": "Microservices",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "36770094"
@@ -396,7 +396,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"mobileNumber\": \"+48 123456789\",\r\n    \"loanTypeName\": \"STUDENT\"\r\n}",
+							"raw": "{\r\n    \"mobileNumber\": \"+48 123456789\",\r\n    \"loanTypeName\": \"HOME\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -432,7 +432,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"loanNumber\": 721695604,\r\n    \"mobileNumber\": \"+48 123456789\",\r\n    \"loanTypeName\": \"HOME\",\r\n    \"moneyLoaned\": 501.69,\r\n    \"moneyPaid\": 500\r\n}",
+							"raw": "{\r\n    \"loanNumber\": 441898963,\r\n    \"mobileNumber\": \"+48 123456789\",\r\n    \"loanTypeName\": \"HOME\",\r\n    \"moneyLoaned\": 501.69,\r\n    \"moneyPaid\": 500\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -461,7 +461,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"loanNumber\": 721695604,\r\n    \"mobileNumber\": \"+48 123456789\",\r\n    \"loanTypeName\": \"HOME\"\r\n}",
+							"raw": "{\r\n    \"loanNumber\": 441898963,\r\n    \"mobileNumber\": \"+48 123456789\",\r\n    \"loanTypeName\": \"HOME\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -589,13 +589,130 @@
 			"name": "cards",
 			"item": [
 				{
-					"name": "CreateCard",
+					"name": "type",
+					"item": [
+						{
+							"name": "Create card type",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/card/type/create?name=NEW_CARD",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"card",
+										"type",
+										"create"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "NEW_CARD"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get card type",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/card/type/get?name=NEW_CARD",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"card",
+										"type",
+										"get"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "NEW_CARD"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update card type",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/card/type/update?oldName=NEW_CARD&newName=OLD_CARD",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"card",
+										"type",
+										"update"
+									],
+									"query": [
+										{
+											"key": "oldName",
+											"value": "NEW_CARD"
+										},
+										{
+											"key": "newName",
+											"value": "OLD_CARD"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete card type",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/card/type/delete?name=OLD_CARD",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"card",
+										"type",
+										"delete"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "OLD_CARD"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create card",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"mobileNumber\" : 123456789,\r\n    \"type\" : \"Credit Card\",\r\n    \"moneyLimit\" : 100000\r\n}",
+							"raw": "{\r\n    \"mobileNumber\" : \"+48 123456789\",\r\n    \"cardTypeName\" : \"CREDIT\",\r\n    \"moneyLimit\" : 100000.00\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -618,12 +735,24 @@
 					"response": []
 				},
 				{
-					"name": "GetCardDetails",
+					"name": "Get card",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mobileNumber\": \"+48 123456789\",\r\n    \"cardTypeName\": \"DEBIT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:9000/card/get?mobileNumber=123456789",
+							"raw": "http://localhost:9000/card/get",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -632,25 +761,19 @@
 							"path": [
 								"card",
 								"get"
-							],
-							"query": [
-								{
-									"key": "mobileNumber",
-									"value": "123456789"
-								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "UpdateCardDetails",
+					"name": "Update card",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"mobileNumber\": \"123456789\",\r\n    \"cardNumber\": \"100713114864\",\r\n    \"cardType\": \"Debit Card\",\r\n    \"totalLimit\": 100000,\r\n    \"amountUsed\": 10000,\r\n    \"availableAmount\": 90000\r\n}",
+							"raw": "{\r\n    \"cardNumber\": 3129382269577479,\r\n    \"mobileNumber\": \"+48 123456789\",\r\n    \"cardTypeName\": \"DEBIT\",\r\n    \"moneyLimit\": 9500,\r\n    \"moneyUsed\": 500\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -673,12 +796,21 @@
 					"response": []
 				},
 				{
-					"name": "DeleteCardDetails",
+					"name": "Delete card",
 					"request": {
 						"method": "DELETE",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cardNumber\": 3129382269577479,\r\n    \"mobileNumber\": \"+48 123456789\",\r\n    \"cardTypeName\": \"DEBIT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:9000/card/delete?mobileNumber=123456789",
+							"raw": "http://localhost:9000/card/delete",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -687,19 +819,13 @@
 							"path": [
 								"card",
 								"delete"
-							],
-							"query": [
-								{
-									"key": "mobileNumber",
-									"value": "123456789"
-								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "build-version",
+					"name": "Get build version",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -719,7 +845,7 @@
 					"response": []
 				},
 				{
-					"name": "java-version",
+					"name": "Get java version",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -739,7 +865,7 @@
 					"response": []
 				},
 				{
-					"name": "maven-version",
+					"name": "Get maven version",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -759,7 +885,7 @@
 					"response": []
 				},
 				{
-					"name": "contact-information",
+					"name": "Get contact information",
 					"request": {
 						"method": "GET",
 						"header": [],
