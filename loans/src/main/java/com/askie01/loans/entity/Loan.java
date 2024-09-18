@@ -1,7 +1,7 @@
 package com.askie01.loans.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 public class Loan extends AuditableEntity {
     private Integer loanNumber;
 
-    @OneToOne
+    @ManyToOne
     private LoanType loanType;
     private String mobileNumber;
     private BigDecimal moneyLoaned;
