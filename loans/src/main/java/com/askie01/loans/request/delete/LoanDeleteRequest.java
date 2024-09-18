@@ -9,14 +9,14 @@ import lombok.Data;
 @Data
 public class LoanDeleteRequest implements DeleteRequest {
 
-    @Min(value = 100_000_000, message = "Number must be at least 100 000 000")
-    @Max(value = 999_999_999, message = "Number must be at most 999 999 999")
+    @Min(value = 100_000_000, message = "Loan number must be at least 100 000 000")
+    @Max(value = 999_999_999, message = "Loan number must be at most 999 999 999")
     private Integer loanNumber;
 
     @Pattern(regexp = "^\\+\\d{2,3} \\d{8,15}$",
             message = "Mobile number must start with '+' followed by 2-3 digits, a space, and 8-15 digits")
     private String mobileNumber;
 
-    @NotEmpty(message = "Type cannot be null/empty")
+    @NotEmpty(message = "Loan type name cannot be null/empty")
     private String loanTypeName;
 }
