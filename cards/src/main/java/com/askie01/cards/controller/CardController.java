@@ -2,15 +2,15 @@ package com.askie01.cards.controller;
 
 import com.askie01.cards.constant.ResponseCode;
 import com.askie01.cards.constant.ResponseMessage;
-import com.askie01.cards.dto.CardDTO;
 import com.askie01.cards.dto.ContactInformationDTO;
-import com.askie01.cards.requests.CardCreationRequest;
-import com.askie01.cards.requests.CardUpdateRequest;
+import com.askie01.cards.entity.Card;
+import com.askie01.cards.request.create.CardCreateRequest;
+import com.askie01.cards.request.delete.CardDeleteRequest;
+import com.askie01.cards.request.get.CardGetRequest;
+import com.askie01.cards.request.update.CardUpdateRequest;
 import com.askie01.cards.response.Response;
-import com.askie01.cards.service.CardService;
+import com.askie01.cards.service.DefaultCardService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -29,37 +29,33 @@ public class CardController {
     @Value("${build.version}")
     private String buildVersion;
 
-    private final CardService cardService;
+    private final DefaultCardService defaultCardService;
     private final Environment environment;
     private final ContactInformationDTO contactInformationDTO;
 
     @PostMapping("create")
-    public ResponseEntity<Response> createCard(@Valid @RequestBody CardCreationRequest request) {
-        cardService.createCard(request);
-        final Response response = new Response(ResponseCode.CREATED, ResponseMessage.CREATED);
+    public ResponseEntity<Response> createCard(@Valid @RequestBody CardCreateRequest request) {
+        defaultCardService.createCard(request);
+        final Response response = new Response(ResponseCode.CREATED, ResponseMessage.CARD_CREATED);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("get")
-    public ResponseEntity<CardDTO> getCardDTO(@Min(value = 100_000_000, message = "Mobile number must be at least 9 digits")
-                                              @Max(value = 999_999_999, message = "Mobile number must be at most 9 digits")
-                                              @RequestParam Integer mobileNumber) {
-        final CardDTO cardDTO = cardService.getCardDTO(mobileNumber);
-        return new ResponseEntity<>(cardDTO, HttpStatus.OK);
+    public ResponseEntity<Card> getCard(@Valid @RequestBody CardGetRequest request) {
+        final Card card = defaultCardService.getCard(request);
+        return new ResponseEntity<>(card, HttpStatus.OK);
     }
 
     @PutMapping("update")
     public ResponseEntity<Response> updateCard(@Valid @RequestBody CardUpdateRequest request) {
-        cardService.updateCard(request);
+        defaultCardService.updateCard(request);
         final Response response = new Response(ResponseCode.OK, ResponseMessage.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("delete")
-    public ResponseEntity<Response> deleteCard(@Min(value = 100_000_000, message = "Mobile number must be at least 9 digits")
-                                               @Max(value = 999_999_999, message = "Mobile number must be at most 9 digits")
-                                               @RequestParam Integer mobileNumber) {
-        cardService.deleteCard(mobileNumber);
+    public ResponseEntity<Response> deleteCard(@Valid @RequestBody CardDeleteRequest request) {
+        defaultCardService.deleteCard(request);
         final Response response = new Response(ResponseCode.OK, ResponseMessage.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
