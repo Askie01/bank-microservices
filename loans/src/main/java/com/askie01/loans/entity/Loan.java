@@ -1,10 +1,13 @@
 package com.askie01.loans.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.math.BigDecimal;
 
 @Data
 @ToString(callSuper = true)
@@ -12,10 +15,12 @@ import lombok.ToString;
 @Entity
 @Table(name = "loans")
 public class Loan extends AuditableEntity {
-    private Long number;
-    private String type;
-    private Integer mobileNumber;
-    private Integer moneyLoaned;
-    private Integer moneyPaid;
-    private Integer moneyRemaining;
+    private Integer loanNumber;
+
+    @OneToOne
+    private LoanType loanType;
+    private String mobileNumber;
+    private BigDecimal moneyLoaned;
+    private BigDecimal moneyPaid;
+    private BigDecimal moneyRemaining;
 }

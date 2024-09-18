@@ -77,4 +77,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(LoanTypeAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleLoanTypeAlreadyExistsException(LoanTypeAlreadyExistsException exception, WebRequest webRequest) {
+        final ErrorResponse errorResponse = new ErrorResponse(
+                webRequest.getDescription(false),
+                ResponseCode.BAD_REQUEST,
+                exception.getMessage(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
 }
