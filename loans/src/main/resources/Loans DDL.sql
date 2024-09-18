@@ -32,7 +32,7 @@ ALTER TABLE loans
         UNIQUE (mobile_number);
 
 ALTER TABLE loans
-    ADD CONSTRAINT fk_loans_loan_type
+    ADD CONSTRAINT fk_loans_loan_types
         FOREIGN KEY Loans (loan_type_id) REFERENCES loan_types (id);
 
 CREATE TRIGGER generate_loan_number_before_insert_on_loans
@@ -55,15 +55,11 @@ BEGIN
     end if;
 end;
 
-CREATE TRIGGER check_money_remaining_before_insert_on_loans
+CREATE TRIGGER set_money_remaining_before_insert_on_loans
     BEFORE INSERT
     ON loans
     FOR EACH ROW
-BEGIN
-    IF NEW.money_remaining IS NULL THEN
-        SET NEW.money_remaining = NEW.money_loaned;
-    end if;
-end;
+    SET NEW.money_remaining = NEW.money_loaned;
 
 CREATE TRIGGER check_money_loaned_before_update_on_loans
     BEFORE UPDATE
@@ -85,7 +81,7 @@ BEGIN
     end if;
 end;
 
-CREATE TRIGGER check_money_remaining_before_update_on_loans
+CREATE TRIGGER calculate_money_remaining_before_update_on_loans
     BEFORE UPDATE
     ON loans
     FOR EACH ROW
