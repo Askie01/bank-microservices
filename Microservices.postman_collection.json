@@ -24,15 +24,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/account/create",
+							"raw": "http://localhost:8080/account",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"account",
-								"create"
+								"account"
 							]
 						}
 					},
@@ -44,15 +43,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/account/get?mobileNumber=123456789",
+							"raw": "http://localhost:8080/account?mobileNumber=123456789",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"account",
-								"get"
+								"account"
 							],
 							"query": [
 								{
@@ -71,7 +69,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Adam Kowalski\",\r\n    \"email\": \"adam.kowalski@gmail.com\",\r\n    \"mobileNumber\": \"123456789\",\r\n    \"accountDTO\": {\r\n        \"accountId\": 2,\r\n        \"accountType\": \"Savings\",\r\n        \"branchAddress\": \"123 Main Street, New York\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"name\": \"Adam Kowalski\",\r\n    \"email\": \"adam.kowalski@gmail.com\",\r\n    \"mobileNumber\": \"123456789\",\r\n    \"accountDTO\": {\r\n        \"id\": 1,\r\n        \"type\": \"Savings\",\r\n        \"address\": \"123 Main Street, New York\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -79,15 +77,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/account/update",
+							"raw": "http://localhost:8080/account",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"account",
-								"update"
+								"account"
 							]
 						}
 					},
@@ -99,20 +96,19 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/account/delete?mobileNumber=987654321",
+							"raw": "http://localhost:8080/account?mobileNumber=123456789",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"account",
-								"delete"
+								"account"
 							],
 							"query": [
 								{
 									"key": "mobileNumber",
-									"value": "987654321"
+									"value": "123456789"
 								}
 							]
 						}
@@ -125,7 +121,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/account/build-info",
+							"raw": "http://localhost:8080/account/build-information",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -133,7 +129,7 @@
 							"port": "8080",
 							"path": [
 								"account",
-								"build-info"
+								"build-information"
 							]
 						}
 					},
@@ -143,7 +139,19 @@
 					"name": "java-version",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/account/java-version",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"account",
+								"java-version"
+							]
+						}
 					},
 					"response": []
 				},
@@ -173,7 +181,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/account/contact-info",
+							"raw": "http://localhost:8080/account/contact-information",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -181,7 +189,7 @@
 							"port": "8080",
 							"path": [
 								"account",
-								"contact-info"
+								"contact-information"
 							]
 						}
 					},
@@ -206,19 +214,165 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "loans",
-			"item": [
+				},
 				{
-					"name": "CreateLoan",
+					"name": "BusRefresh",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/loan/create?mobileNumber=123456789",
+							"raw": "http://localhost:8080/actuator/busrefresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"actuator",
+								"busrefresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "loan",
+			"item": [
+				{
+					"name": "type",
+					"item": [
+						{
+							"name": "Create loan type",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8090/loan/type/create?name=NEW_LOAN",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"loan",
+										"type",
+										"create"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "NEW_LOAN"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get loan type",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8090/loan/type/get?name=STUDENT",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"loan",
+										"type",
+										"get"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "STUDENT"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update loan type",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8090/loan/type/update?oldName=NEW_LOAN&newName=OLD_LOAN",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"loan",
+										"type",
+										"update"
+									],
+									"query": [
+										{
+											"key": "oldName",
+											"value": "NEW_LOAN"
+										},
+										{
+											"key": "newName",
+											"value": "OLD_LOAN"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete loan type",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8090/loan/type/delete?name=OLD_LOAN",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"loan",
+										"type",
+										"delete"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "OLD_LOAN"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create loan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mobileNumber\": \"+48 123456789\",\r\n    \"loanTypeName\": \"STUDENT\",\r\n    \"moneyLoaned\": 200.50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/loan/create",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -227,24 +381,30 @@
 							"path": [
 								"loan",
 								"create"
-							],
-							"query": [
-								{
-									"key": "mobileNumber",
-									"value": "123456789"
-								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "GetLoanDetails",
+					"name": "Get loan",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mobileNumber\": \"+48 123456789\",\r\n    \"loanTypeName\": \"STUDENT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8090/loan/get?mobileNumber=123456789",
+							"raw": "http://localhost:8090/loan/get",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -256,8 +416,9 @@
 							],
 							"query": [
 								{
-									"key": "mobileNumber",
-									"value": "123456789"
+									"key": "",
+									"value": "123456789",
+									"disabled": true
 								}
 							]
 						}
@@ -265,13 +426,13 @@
 					"response": []
 				},
 				{
-					"name": "UpdateLoanDetails",
+					"name": "Update loan",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"mobileNumber\": \"123456789\",\r\n    \"loanNumber\": \"100380670408\",\r\n    \"loanType\": \"Home Loan\",\r\n    \"totalLoan\": 100000,\r\n    \"amountPaid\": 0,\r\n    \"outstandingAmount\": 100000\r\n}",
+							"raw": "{\r\n    \"loanNumber\": 721695604,\r\n    \"mobileNumber\": \"+48 123456789\",\r\n    \"loanTypeName\": \"HOME\",\r\n    \"moneyLoaned\": 501.69,\r\n    \"moneyPaid\": 500\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -294,12 +455,21 @@
 					"response": []
 				},
 				{
-					"name": "DeleteLoanDetails",
+					"name": "Delete loan",
 					"request": {
 						"method": "DELETE",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"loanNumber\": 721695604,\r\n    \"mobileNumber\": \"+48 123456789\",\r\n    \"loanTypeName\": \"HOME\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8090/loan/delete?mobileNumber=123456789",
+							"raw": "http://localhost:8090/loan/delete",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -308,24 +478,18 @@
 							"path": [
 								"loan",
 								"delete"
-							],
-							"query": [
-								{
-									"key": "mobileNumber",
-									"value": "123456789"
-								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "build-info",
+					"name": "Get build version",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/loan/build-info",
+							"raw": "http://localhost:8090/loan/build-version",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -333,14 +497,14 @@
 							"port": "8090",
 							"path": [
 								"loan",
-								"build-info"
+								"build-version"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "java-version",
+					"name": "Get java version",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -360,7 +524,7 @@
 					"response": []
 				},
 				{
-					"name": "maven-version",
+					"name": "Get maven version",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -380,12 +544,12 @@
 					"response": []
 				},
 				{
-					"name": "contact-info",
+					"name": "Get contact information",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/loan/contact-info",
+							"raw": "http://localhost:8090/loan/contact-information",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -393,7 +557,7 @@
 							"port": "8090",
 							"path": [
 								"loan",
-								"contact-info"
+								"contact-information"
 							]
 						}
 					},
@@ -429,8 +593,17 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mobileNumber\" : 123456789,\r\n    \"type\" : \"Credit Card\",\r\n    \"moneyLimit\" : 100000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:9000/card/create?mobileNumber=123456789",
+							"raw": "http://localhost:9000/card/create",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -439,12 +612,6 @@
 							"path": [
 								"card",
 								"create"
-							],
-							"query": [
-								{
-									"key": "mobileNumber",
-									"value": "123456789"
-								}
 							]
 						}
 					},
@@ -532,12 +699,12 @@
 					"response": []
 				},
 				{
-					"name": "build-info",
+					"name": "build-version",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:9000/card/build-info",
+							"raw": "http://localhost:9000/card/build-version",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -545,7 +712,7 @@
 							"port": "9000",
 							"path": [
 								"card",
-								"build-info"
+								"build-version"
 							]
 						}
 					},
@@ -577,27 +744,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/loan/maven-version",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8090",
-							"path": [
-								"loan",
-								"maven-version"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "contact-info",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:9000/card/contact-info",
+							"raw": "http://localhost:9000/card/maven-version",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -605,7 +752,27 @@
 							"port": "9000",
 							"path": [
 								"card",
-								"contact-info"
+								"maven-version"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "contact-information",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/card/contact-information",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"card",
+								"contact-information"
 							]
 						}
 					},
