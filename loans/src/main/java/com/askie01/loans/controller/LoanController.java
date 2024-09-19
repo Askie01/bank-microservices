@@ -10,7 +10,7 @@ import com.askie01.loans.request.delete.LoanDeleteRequest;
 import com.askie01.loans.request.get.LoanGetRequest;
 import com.askie01.loans.request.update.LoanUpdateRequest;
 import com.askie01.loans.response.Response;
-import com.askie01.loans.service.DefaultLoanService;
+import com.askie01.loans.service.LoanService;
 import jakarta.validation.Valid;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,33 +30,33 @@ public class LoanController {
     @Value("${build.version}")
     private String buildVersion;
 
-    private final DefaultLoanService defaultLoanService;
+    private final LoanService loanService;
     private final Environment environment;
     private final ContactInformationDTO contactInformationDTO;
 
     @PostMapping(path = "create")
     public ResponseEntity<Response> createLoan(@Valid @RequestBody LoanCreateRequest request) {
-        defaultLoanService.createLoan(request);
+        loanService.createLoan(request);
         final Response response = new Response(ResponseCode.CREATED, ResponseMessage.LOAN_CREATED);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping(path = "get")
     public ResponseEntity<Loan> getLoan(@Valid @RequestBody LoanGetRequest request) {
-        final Loan loan = defaultLoanService.getLoan(request);
+        final Loan loan = loanService.getLoan(request);
         return new ResponseEntity<>(loan, HttpStatus.OK);
     }
 
     @PutMapping(path = "update")
     public ResponseEntity<Response> updateLoan(@Valid @RequestBody LoanUpdateRequest request) {
-        defaultLoanService.updateLoan(request);
+        loanService.updateLoan(request);
         final Response response = new Response(ResponseCode.OK, ResponseMessage.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping(path = "delete")
     public ResponseEntity<Response> deleteLoan(@Valid @RequestBody LoanDeleteRequest request) {
-        defaultLoanService.deleteLoan(request);
+        loanService.deleteLoan(request);
         final Response response = new Response(ResponseCode.OK, ResponseMessage.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

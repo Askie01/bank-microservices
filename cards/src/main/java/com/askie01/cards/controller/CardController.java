@@ -9,7 +9,7 @@ import com.askie01.cards.request.delete.CardDeleteRequest;
 import com.askie01.cards.request.get.CardGetRequest;
 import com.askie01.cards.request.update.CardUpdateRequest;
 import com.askie01.cards.response.Response;
-import com.askie01.cards.service.DefaultCardService;
+import com.askie01.cards.service.CardService;
 import jakarta.validation.Valid;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,33 +29,33 @@ public class CardController {
     @Value("${build.version}")
     private String buildVersion;
 
-    private final DefaultCardService defaultCardService;
+    private final CardService cardService;
     private final Environment environment;
     private final ContactInformationDTO contactInformationDTO;
 
     @PostMapping("create")
     public ResponseEntity<Response> createCard(@Valid @RequestBody CardCreateRequest request) {
-        defaultCardService.createCard(request);
+        cardService.createCard(request);
         final Response response = new Response(ResponseCode.CREATED, ResponseMessage.CARD_CREATED);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("get")
     public ResponseEntity<Card> getCard(@Valid @RequestBody CardGetRequest request) {
-        final Card card = defaultCardService.getCard(request);
+        final Card card = cardService.getCard(request);
         return new ResponseEntity<>(card, HttpStatus.OK);
     }
 
     @PutMapping("update")
     public ResponseEntity<Response> updateCard(@Valid @RequestBody CardUpdateRequest request) {
-        defaultCardService.updateCard(request);
+        cardService.updateCard(request);
         final Response response = new Response(ResponseCode.OK, ResponseMessage.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("delete")
     public ResponseEntity<Response> deleteCard(@Valid @RequestBody CardDeleteRequest request) {
-        defaultCardService.deleteCard(request);
+        cardService.deleteCard(request);
         final Response response = new Response(ResponseCode.OK, ResponseMessage.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
