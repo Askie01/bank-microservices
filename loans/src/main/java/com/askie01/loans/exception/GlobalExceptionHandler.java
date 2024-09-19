@@ -49,7 +49,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorResponse> handleGlobalException(Exception exception, WebRequest webRequest) {
         final ErrorResponse errorResponse = new ErrorResponse(
                 webRequest.getDescription(false),
-                ResponseCode.INTERVAL_SERVER_ERROR,
+                ResponseCode.INTERNAL_SERVER_ERROR,
                 exception.getMessage(),
                 LocalDateTime.now()
         );
