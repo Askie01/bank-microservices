@@ -1,8 +1,7 @@
 package org.askie01.accounts.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,9 +13,13 @@ import lombok.ToString;
 @Entity
 @Table(name = "accounts")
 public class Account extends AuditableEntity {
-    @OneToOne
-    @JoinColumn(name = "customer_id")
+
+    private String login;
+    private String password;
+
+    @ManyToOne
+    private AccountType accountType;
+
+    @ManyToOne
     private Customer customer;
-    private String type;
-    private String address;
 }

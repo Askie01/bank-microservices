@@ -1,14 +1,17 @@
-package org.askie01.accounts.controller;
+package org.askie01.accounts.controller.account;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.askie01.accounts.constant.ResponseCode;
 import org.askie01.accounts.constant.ResponseMessage;
 import org.askie01.accounts.dto.AccountContactInformationDTO;
-import org.askie01.accounts.dto.CustomerDTO;
+import org.askie01.accounts.entity.Account;
+import org.askie01.accounts.request.account.create.AccountCreateRequest;
+import org.askie01.accounts.request.account.delete.AccountDeleteRequest;
+import org.askie01.accounts.request.account.get.AccountGetRequest;
+import org.askie01.accounts.request.account.update.AccountUpdateRequest;
 import org.askie01.accounts.response.Response;
-import org.askie01.accounts.service.AccountService;
+import org.askie01.accounts.service.account.AccountService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Data
 @Validated
@@ -30,36 +35,40 @@ public class AccountController {
     private final Environment environment;
     private final AccountContactInformationDTO accountContactInformationDto;
 
-    @PostMapping
-    public ResponseEntity<Response> createAccount(@Valid @RequestBody final CustomerDTO customerDTO) {
-        accountService.createAccount(customerDTO);
-        final Response response = new Response(ResponseCode.CREATED, ResponseMessage.CREATED);
+    @PostMapping(path = "create")
+    public ResponseEntity<Response> createAccount(@Valid @RequestBody AccountCreateRequest request) {
+        accountService.createAccount(request);
+        final Response response = new Response(ResponseCode.CREATED, ResponseMessage.ACCOUNT_CREATED);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<CustomerDTO> getAccountDetails(@Pattern(regexp = "(^$|[0-9]{9})", message = "Mobile number must be 9 digits")
-                                                         @RequestParam String mobileNumber) {
-        final CustomerDTO customerDTO = accountService.getAccount(mobileNumber);
-        return new ResponseEntity<>(customerDTO, HttpStatus.FOUND);
+//    @GetMapping(path = "get")
+//    public ResponseEntity<Account> getAccount(@Valid @RequestBody AccountGetRequest request) {
+//        final Account account = accountService.getAccount(request);
+//        return new ResponseEntity<>(account, HttpStatus.FOUND);
+//    }
+
+    @GetMapping(path = "get")
+    public ResponseEntity<List<Account>> getAccounts(@Valid @RequestBody AccountGetRequest request) {
+        final List<Account> accounts = accountService.getAccounts(request);
+        return new ResponseEntity<>(accounts, HttpStatus.FOUND);
     }
 
-    @PutMapping
-    public ResponseEntity<Response> updateAccountDetails(@Valid @RequestBody CustomerDTO customerDTO) {
-        accountService.updateAccount(customerDTO);
+    @PutMapping(path = "update")
+    public ResponseEntity<Response> updateAccountDetails(@Valid @RequestBody AccountUpdateRequest request) {
+        accountService.updateAccount(request);
         final Response response = new Response(ResponseCode.OK, ResponseMessage.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Response> deleteAccountDetails(@Pattern(regexp = "(^$|[0-9]{9})", message = "Mobile number must be 9 digits")
-                                                         @RequestParam String mobileNumber) {
+    @DeleteMapping(path = "delete")
+    public ResponseEntity<Response> deleteAccountDetails(@Valid @RequestBody AccountDeleteRequest mobileNumber) {
         accountService.deleteAccount(mobileNumber);
         final Response response = new Response(ResponseCode.OK, ResponseMessage.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("build-information")
+    @GetMapping("build-version")
     public ResponseEntity<String> getBuildVersion() {
         return new ResponseEntity<>(buildVersion, HttpStatus.OK);
     }
