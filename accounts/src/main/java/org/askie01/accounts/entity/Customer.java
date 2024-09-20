@@ -12,7 +12,8 @@ import lombok.ToString;
 @Entity
 @Table(name = "customers")
 public class Customer extends AuditableEntity {
-    private String name;
+    private String firstName;
+    private String lastName;
     private String email;
     private String mobileNumber;
 }
