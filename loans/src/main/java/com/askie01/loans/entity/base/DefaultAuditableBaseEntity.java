@@ -1,5 +1,6 @@
-package com.askie01.loans.entity;
+package com.askie01.loans.entity.base;
 
+import com.askie01.loans.entity.abstraction.AuditableBaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class AuditableEntity extends BaseEntity {
+public class DefaultAuditableBaseEntity extends DefaultBaseEntity implements AuditableBaseEntity<Long, LocalDateTime, String> {
 
     @CreatedDate
     @Column(updatable = false)
