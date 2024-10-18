@@ -19,3 +19,4 @@ target/
 *.iml
 *.ipr
 .DS_Store
+/src/main/java/com/askie01/loans/logs/
