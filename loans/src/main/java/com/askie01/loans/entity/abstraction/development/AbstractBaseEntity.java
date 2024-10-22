@@ -1,6 +1,6 @@
-package com.askie01.loans.entity.base;
+package com.askie01.loans.entity.abstraction.development;
 
-import com.askie01.loans.entity.abstraction.BaseEntity;
+import com.askie01.loans.entity.abstraction.common.BaseEntity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -9,7 +9,8 @@ import lombok.Data;
 
 @Data
 @MappedSuperclass
-public class DefaultBaseEntity implements BaseEntity<Long> {
+public abstract class AbstractBaseEntity implements BaseEntity<Long> {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,6 +1,6 @@
-package com.askie01.loans.entity.base;
+package com.askie01.loans.entity.abstraction.development;
 
-import com.askie01.loans.entity.abstraction.NamedEntity;
+import com.askie01.loans.entity.abstraction.common.NamedEntity;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,6 +10,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
-public class DefaultNamedEntity extends DefaultBaseEntity implements NamedEntity<Long, String> {
+public abstract class AbstractNamedEntity extends AbstractBaseEntity
+        implements NamedEntity<Long, String> {
     private String name;
 }
