@@ -1,8 +1,7 @@
-package com.askie01.loans.entity.loan.base;
+package com.askie01.loans.entity.loan;
 
-import com.askie01.loans.entity.loan.type.base.DefaultLoanType;
-import com.askie01.loans.entity.base.DefaultAuditableBaseEntity;
-import com.askie01.loans.entity.loan.abstraction.Loan;
+import com.askie01.loans.entity.abstraction.test.AbstractAuditableBaseEntity;
+import com.askie01.loans.entity.loan.type.TestLoanType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -11,19 +10,20 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "loans")
-public class DefaultLoan extends DefaultAuditableBaseEntity implements Loan<Long, LocalDateTime, String> {
+public class TestLoan extends AbstractAuditableBaseEntity
+        implements LoanEntity<String, LocalDate, String, String, TestLoanType, BigDecimal> {
 
-    private Integer loanNumber;
+    private String loanNumber;
 
     @ManyToOne
-    private DefaultLoanType defaultLoanType;
+    private TestLoanType loanType;
     private BigDecimal moneyLoaned;
     private BigDecimal moneyPaid;
     private BigDecimal moneyRemaining;
